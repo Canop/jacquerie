@@ -1,5 +1,4 @@
 
-
 var dataCache = new WeakMap;
 $.fn.data = function(key, val){
 	if (this.length===0) return arguments.length===1 ? undefined : this;

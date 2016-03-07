@@ -66,12 +66,12 @@ gulp.task("build", ()=>
 	.pipe(gulpif(!mode.watch, eslint.failAfterError()))
 	.pipe(concat("jacquerie.concat.js"))
 	.pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
-	//.pipe(uglify({})) // uglify doesn't work with ES6 features yet
-	// .on("error", function(err){
-	// 	let c = gutil.colors;
-	// 	gutil.log(c.red("Error: "+err.message));
-	// 	gutil.log("@ "+c.blue(err.fileName)+":"+c.blue(err.lineNumber));
-	// })
+	.pipe(uglify({})) // uglify doesn't work with ES6 features yet
+	.on("error", function(err){
+		let c = gutil.colors;
+		gutil.log(c.red("Error: "+err.message));
+		gutil.log("@ "+c.blue(err.fileName)+":"+c.blue(err.lineNumber));
+	})
 	.pipe(rename("jacquerie.min.js"))
 	.pipe(gulp.dest("build"))
 );

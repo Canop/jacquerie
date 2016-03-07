@@ -19,7 +19,7 @@ $.fn = $.prototype = {
 
 	lenght: 0,
 
-	slice: Array.prototype.slice.apply,
+	slice: Array.prototype.slice,
 
 	eq: function(i){
 		return $(i<this.length ? this[i] : null);
