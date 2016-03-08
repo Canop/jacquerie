@@ -27,7 +27,7 @@ gulp.task("build", ()=>
 		"extends": "eslint:recommended",
 		"globals": {
 			$: true,
-			WeakMap: true, Map: true,
+			WeakMap: true, Map: true, Set: true,
 		},
 		"rules": {
 			"no-unused-vars": [ 2, {"vars": "all", "args": "none"} ],
