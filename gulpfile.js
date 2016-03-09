@@ -71,6 +71,7 @@ gulp.task("build", ()=>
 		let c = gutil.colors;
 		gutil.log(c.red("Error: "+err.message));
 		gutil.log("@ "+c.blue(err.fileName)+":"+c.blue(err.lineNumber));
+		if (mode.watch) this.emit('end');
 	})
 	.pipe(rename("jacquerie.min.js"))
 	.pipe(gulp.dest("build"))
