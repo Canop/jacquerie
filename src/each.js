@@ -1,5 +1,5 @@
 
-// note that it's preferable to use each.
+// note that it's preferable to use forEach.
 //      $thing.each(function(i, element){ ...
 //  is about equivalent to
 //      $thing.forEach(function(element, i){ ...

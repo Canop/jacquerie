@@ -27,7 +27,7 @@ gulp.task("build", ()=>
 		"extends": "eslint:recommended",
 		"globals": {
 			$: true,
-			WeakMap: true, Map: true, Set: true,
+			WeakMap: true, Map: true, Set: true, WeakSet: true,
 		},
 		"rules": {
 			"no-unused-vars": [ 2, {"vars": "all", "args": "none"} ],
@@ -85,6 +85,16 @@ gulp.task("set-watch-mode", ()=>{
 
 gulp.task("watch", ["set-watch-mode", "build"], ()=>{
 	gulp.watch(["src/*.js"], ["build"]);
+});
+
+gulp.task("deploy-miaou", ["build"], ()=>
+	gulp.src("build/jacquerie.min.js")
+	.pipe(gulp.dest("../miaou/static"))
+	.pipe(gulp.dest("../miaou/src/rsc"))
+);
+
+gulp.task("watch-miaou", ["set-watch-mode", "build", "deploy-miaou"], ()=>{
+	gulp.watch(["src/*.js"], ["deploy-miaou"]);
 });
 
 gulp.task("default", ["build"]);

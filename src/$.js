@@ -19,14 +19,12 @@ $.fn = $.prototype = {
 
 	lenght: 0,
 
-	slice: Array.prototype.slice,
-
 	eq: function(i){
 		return $(i<this.length ? this[i] : null);
 	},
 
 	get: function(i){
-		return i==+i ? this[i] : this.slice();
+		return i==+i ? this[i] : [].slice.call(this);
 	},
 
 

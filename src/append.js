@@ -37,7 +37,7 @@ $.fn.prepend = function(elements){
 	return this;
 }
 
-$.fn.appendTo = function(elements){
+$.fn.prependTo = function(elements){
 	let	$this = this,
 		$elements = $(elements);
 	for (let i=0; i<$elements.length; i++) {

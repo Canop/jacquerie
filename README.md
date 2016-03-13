@@ -1,20 +1,44 @@
 # jacquerie
 Similar to jQuery but without the burden of history
 
-## Why
+## Why this is needed
 
 jQuery's *"Write Less, Do More"* is wonderful.
 
 But it's old.
 
-Now your browser is expected to have promises, CSS transitions, fetch, querySelectorAll, weak maps, arrow functions, etc.
+Now browsers are expected to have promises, CSS transitions, fetch, querySelectorAll, weak maps, array functions, arrow functions, etc.
 
 Cross browser behavior is also very consistent.
 
-Usages change too.
+And practices change.
 
-Most of jQuery's API and most of the implementation is now useless.
+Most of jQuery's API is now useless and most of the implementation of useful functions is useless.
 
-But a lot of jQuery's API is still relevant. And we don't need to learn it.
+But jQuery's logic is still relevant. And we don't need to learn it.
 
-That's why jQuery simplified alternatives make a lot of sense. This is one. This is mine, it may not suit you.
+That's why jQuery simplified alternatives make a lot of sense. This is one. This is mine. It may not suit you.
+
+### Why you totally should use Jacquerie instead of jQuery
+
+* it's lighter
+* it's faster
+* it does all the things like jQuery
+
+### Why you really should stick with jQuery
+
+* the js file size difference doesn't matter much compared to the rest of your site (and it's cached)
+* client-side code speed isn't usually a problem
+* I lied: Jacquerie doesn't do all the things done by jQuery. By design. It's very possible you need one function I deemed useless
+* why lose time testing a new library and taking risks? Just use jQuery.
+* you don't decide what browsers you want to support. Sigh.
+
+## What's not in Jacquerie
+
+1. All Ajax, Defferred, and Animation related functions make no sense in recent browsers. They're not in Jacquerie.
+1. There's no stack in Jacquerie traversing
+1. There's only a limited support for `:visible`. You can only use it when it's the whole selector of `filter` (as is recommanded for jQuery).
+1. `:gt`, `:lt` : use `$.fn.slice` (as is recommended for jQuery)
+1. jQuery is lax on attribute selectors and lets you omit the quotes in `[name="value"]`. Jacquerie lets querySelectorAll do the query and don't lose time cleaning your selectors.
+1. I made choices, and things I found useless weren't implemented
+1. I probably forgot some important features. This can change, if you ask for them.
