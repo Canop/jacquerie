@@ -5,8 +5,11 @@
 $.fn.append = function(elements){
 	let $elements = $(elements);
 	for (let i=0; i<this.length; i++) {
-		if (i) $elements = $elements.clone();
+		if (i) {
+			$elements = $elements.clone();
+		}
 		for (let j=0; j<$elements.length; j++) {
+			console.log("appendChild", $elements[j]);
 			this[i].appendChild($elements[j]);
 		}
 	}

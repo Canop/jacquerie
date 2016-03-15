@@ -92,12 +92,17 @@ TypeHandler.prototype.unbind = function(top, selector, callback){
 TypeHandler.prototype.findMatches = function(top, target){
 	var matches = [];
 	var element = target;
-	while (element && element!==top) {
-		for (var i=0; i<this.handlers.length; i++) {
-			var handler = this.handlers[i];
-			if (handler.selector && !element.matches(handler.selector)) continue;
-			matches.push({handler, element});
+	while (element) {
+		for (let i=0; i<this.handlers.length; i++) {
+			let handler = this.handlers[i];
+			if (
+				!handler.selector
+				|| (element!==top && element.matches(handler.selector))
+			) {
+				matches.push({handler, element});
+			}
 		}
+		if (element===top) break;
 		element = element.parentNode;
 	}
 	return matches;

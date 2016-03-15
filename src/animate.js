@@ -9,8 +9,10 @@ $.fn.animate = function(props, duration, cb){
 	var	$this = this,
 		startTime = Date.now(),
 		vars = [];
-	if (typeof duration === "function") {
-		cb = duration;
+	if (!(duration>0)) {
+		if (typeof duration === "function") {
+			cb = duration;
+		}
 		duration = 400;
 	}
 	for (let key in props) {
@@ -22,16 +24,9 @@ $.fn.animate = function(props, duration, cb){
 	}
 	(function step(){
 		var	now = Date.now(),
-			progress = (now-startTime)/duration;
-		if (progress>1) {
-			for (let i=vars.length; i--;) {
-				$this.css(vars[i].key, vars[i].endValue);
-			}
-			if (cb) {
-				for (let i=0; i<$this.length; i++) cb.call($this[i]);
-			}
-			return;
-		}
+			progress = (now-startTime)/duration,
+			finished = progress>1;
+		if (finished) progress = 1;
 		for (let i=vars.length; i--;) {
 			var	v = vars[i];
 			for (let j=0; j<$this.length; j++) {
@@ -40,9 +35,10 @@ $.fn.animate = function(props, duration, cb){
 					$e = $($this[j]);
 				if (nocssfuns[v.key]) $e[v.key](value);
 				else $e.css(v.key, value);
+				if (finished && cb) cb.call($this[j]);
 			}
 		}
-		requestAnimationFrame(step);
+		if (!finished) requestAnimationFrame(step);
 	})();
 	return this;
 }

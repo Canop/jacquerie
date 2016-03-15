@@ -19,7 +19,7 @@ But jQuery's logic is still relevant. And we don't need to learn it.
 
 That's why jQuery simplified alternatives make a lot of sense. This is one. This is mine. It may not suit you.
 
-![Jacquerie](doc/jacquerie-gravure.jpg)
+![Jacquerie](doc/jacquerie-gravure.jpg "Jacquerie: Not a Revolution")
 
 ### Why you totally should use Jacquerie instead of jQuery
 

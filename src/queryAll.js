@@ -18,20 +18,28 @@ $.queryAll = function(parent, elements){
 			return parent.getElementsByTagName(match[1]);
 		}
 	}
-	if (!elements) return [];
 	if (elements instanceof Node) {
 		elements = [elements];
 	}
-	// other cases: NodeList, [Node], $
-	if (parent !== document) {
-		elements = elements.filter(function(e){
-			e = e.parentElement;
-			while (e) {
-				if (e===parent) return true;
-				e = e.parentElement;
-			}
-			return false;
-		});
+	if (!elements || !elements.length) return [];
+	// other cases: NodeList, [Node], $, [$]
+	var flat = [];
+	for (var i=0; i<elements.length; i++) {
+		let e = elements[i];
+		if (!e) continue;
+		if (e.length) { // mainly for when e is an array of $ elements
+			for (var j=0; j<e.length; j++) flat.push(e[j]);
+		} else {
+			flat.push(e);
+		}
 	}
-	return elements;
+	if (parent === document) return flat;
+	return flat.filter(function(e){
+		e = e.parentElement;
+		while (e) {
+			if (e===parent) return true;
+			e = e.parentElement;
+		}
+		return false;
+	});
 }
