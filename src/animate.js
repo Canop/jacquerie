@@ -1,5 +1,5 @@
 
-// TODO: support deltas (i.e. "+=15"=
+// TODO: support deltas (i.e. "+=15")
 
 let nocssfuns = {
 	scrollTop: 1

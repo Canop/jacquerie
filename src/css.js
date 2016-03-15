@@ -32,7 +32,6 @@ $.fn.css = function(a, b){
 		for (var key in a) {
 			var val = a[key];
 			if (val == +val && !nopx[key]) val += 'px';
-			console.log("css", key, a[key], val);
 			this[i].style.setProperty(key, val);
 		}
 	}

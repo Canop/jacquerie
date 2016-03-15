@@ -8,9 +8,6 @@
 		}
 		if (this.length) {
 			var e = this[0];
-			if (this[0]===window) {
-				console.log("window!", window.innerWidth);
-			}
 			return e[(e!==window ? "client" : "inner") + Dim]; // does that cover every case ?
 		}
 	}
