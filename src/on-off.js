@@ -70,9 +70,7 @@ function TypeHandler(eventType, top){
 	this.handlers = [];
 	this.globalCallback = (event)=>{
 		var matches = this.findMatches(top, event.target);
-		if (event.type==="mouseover") console.log(event.type, matches)
 		this.dispatch(matches, event);
-		// <- todo here unbind of one
 	};
 	top.addEventListener(this.eventType, this.globalCallback);
 }
@@ -109,8 +107,9 @@ TypeHandler.prototype.dispatch = function(matches, event){
 	for (var i=0; i<matches.length; i++) {
 		var	match = matches[i],
 			handler = match.handler;
-		if (event.type==="mouseover") console.log("match", event.type, match)
-		handler.nbEvents--;
+		if (!--handler.nbEvents) {
+			this.handlers.splice(this.handlers.indexOf(handler), 1);
+		}
 		var ret = handler.callback.call(match.element, event);
 		if (ret === false) {
 			event.preventDefault();

@@ -13,11 +13,13 @@ Cross browser behavior is also very consistent.
 
 And practices change.
 
-Most of jQuery's API is now useless and most of the implementation of useful functions is useless.
+Half of jQuery's API is now useless and half of the implementation of useful functions is useless.
 
 But jQuery's logic is still relevant. And we don't need to learn it.
 
 That's why jQuery simplified alternatives make a lot of sense. This is one. This is mine. It may not suit you.
+
+![Jacquerie](doc/jacquerie-gravure.jpg)
 
 ### Why you totally should use Jacquerie instead of jQuery
 
@@ -35,10 +37,10 @@ That's why jQuery simplified alternatives make a lot of sense. This is one. This
 
 ## What's not in Jacquerie
 
-1. All Ajax, Defferred, and Animation related functions make no sense in recent browsers. They're not in Jacquerie.
-1. There's no stack in Jacquerie traversing
+1. All Ajax and Defferred related functions make little sense in recent browsers. They're not in Jacquerie.
+1. There's no stack in Jacquerie traversing. jQuery's stack is heavy and very rarely used.
 1. There's only a limited support for `:visible`. You can only use it when it's the whole selector of `filter` (as is recommanded for jQuery).
-1. `:gt`, `:lt` : use `$.fn.slice` (as is recommended for jQuery)
+1. `:gt`, `:lt` : use `$.fn.slice` instead (as is recommended for jQuery)
 1. jQuery is lax on attribute selectors and lets you omit the quotes in `[name="value"]`. Jacquerie lets querySelectorAll do the query and don't lose time cleaning your selectors.
 1. I made choices, and things I found useless weren't implemented
 1. I probably forgot some important features. This can change, if you ask for them.

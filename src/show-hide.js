@@ -13,7 +13,8 @@ $.fn.show = function(){
 	return this;
 }
 
-$.fn.toggle = function(){
+$.fn.toggle = function(b){
+	if (typeof b === "boolean") return this[b ? "show" : "hide"]();
 	for (var i=0; i<this.length; i++) {
 		this[i].style.display = this[i].style.display === "none" ? "" : "none";
 	}

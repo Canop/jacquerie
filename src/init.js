@@ -15,8 +15,11 @@ $.parseHTML = function(html){
 $.fn.init = function(elements){
 	if (typeof elements === "string" && notASelectorRegex.test(elements)) {
 		elements = $.parseHTML(elements);
+	} else if (elements===window) {
+		elements = [window];
+	} else {
+		elements = $.queryAll(document, elements);
 	}
-	elements = $.queryAll(document, elements);
 	var length = this.length = elements.length;
 	for (var i=0; i<length; i++) {
 		this[i] = elements[i];

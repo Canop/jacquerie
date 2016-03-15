@@ -1,7 +1,8 @@
 
-// Contrary to jQuery's offset function, this one doesn't
-// allow setting a position (use css for that)
-$.fn.offset = function(){
+$.fn.offset = function(pos){
+	if (pos) {
+		return this.css({top: pos.top, left: pos.left});
+	}
 	if (!this.length) return undefined;
 	var rect = this[0].getBoundingClientRect();
 	return {
