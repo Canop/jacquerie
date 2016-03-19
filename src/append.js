@@ -9,7 +9,6 @@ $.fn.append = function(elements){
 			$elements = $elements.clone();
 		}
 		for (let j=0; j<$elements.length; j++) {
-			console.log("appendChild", $elements[j]);
 			this[i].appendChild($elements[j]);
 		}
 	}

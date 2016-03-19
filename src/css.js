@@ -9,6 +9,11 @@ var nopx = [ // css properties which don't need a unit
 	"z-index",
 ].reduce((s, n) => s.add(n).add(n.replace(/-(\w)/g, (_, c) => c.toUpperCase())), new Set);
 
+// reverse camel case : "strokeOpacity" -> "stroke-opacity"
+function camelToLisp(n){
+	return n.replace(/[A-Z]/g, l => '-'+l.toLowerCase());
+}
+
 // difference with jQuery:
 //  $(element).css() is a shortcut for window.getComputedStyle(element)
 $.fn.css = function(a, b){
@@ -21,7 +26,7 @@ $.fn.css = function(a, b){
 					b.call(this[i], i, window.getComputedStyle(this[i]).getPropertyValue(a))
 				);
 			} else {
-				if (b == +b && !nopx[a]) b += 'px';
+				if (b == +b && !nopx.has(a)) b += 'px';
 				this[i].style.setProperty(a, b);
 			}
 			continue;
@@ -31,8 +36,8 @@ $.fn.css = function(a, b){
 		}
 		for (var key in a) {
 			var val = a[key];
-			if (val == +val && !nopx[key]) val += 'px';
-			this[i].style.setProperty(key, val);
+			if (val == +val && !nopx.has(key)) val += 'px';
+			this[i].style.setProperty(camelToLisp(key), val);
 		}
 	}
 	return this;

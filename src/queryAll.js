@@ -5,6 +5,7 @@ var	simpleSelectorRegex = /^[\.#]?([\w-]+)$/;
 // - faster in simple cases (tag, class, id)
 // - accepting nodes, $ collections, arrays
 $.queryAll = function(parent, elements){
+	if (parent && parent.length) parent = parent[0];
 	if (typeof elements === "string") {
 		var match = elements.match(simpleSelectorRegex);
 		if (!match) return parent.querySelectorAll(elements);

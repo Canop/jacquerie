@@ -1,6 +1,8 @@
 # jacquerie
 Similar to jQuery but without the burden of history
 
+**Warning:** This library isn't ready for consumption. Jacquerie is currently being integrated and tested into a big complex jQuery-intensive project. Once it's proven the promesses are fullfilled, I'll removed the warning.
+
 ## Why this is needed
 
 jQuery's *"Write Less, Do More"* is wonderful.
@@ -26,6 +28,7 @@ That's why jQuery simplified alternatives make a lot of sense. This is one. This
 * it's lighter
 * it's faster
 * it does all the things like jQuery
+* it's educational. You can read and understand the code because it doesn't need to be as smart as jQuery fighting against obsolete browsers. And it certainly doesn't try to be *clever*.
 
 ### Why you really should stick with jQuery
 

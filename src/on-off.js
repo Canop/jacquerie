@@ -5,7 +5,7 @@ $.fn.on = function(eventType, selector, callback, nbEvents){
 		callback = selector;
 		selector = null;
 	} else {
-		eventType = eventTypeReplacements[eventType] || eventType;
+		eventType = enterLeaveEventTypes[eventType] || eventType;
 	}
 	for (var i=0; i<this.length; i++) {
 		delegator(this[i]).bind(this[i], eventType, selector, callback, nbEvents||0);
@@ -22,7 +22,7 @@ $.fn.off = function(eventType, selector, callback){
 		callback = selector;
 		selector = null;
 	} else {
-		eventType = eventTypeReplacements[eventType] || eventType;
+		eventType = enterLeaveEventTypes[eventType] || eventType;
 	}
 	for (var i=0; i<this.length; i++) {
 		delegator(this[i]).unbind(this[i], eventType, selector, callback);
@@ -31,7 +31,7 @@ $.fn.off = function(eventType, selector, callback){
 }
 
 
-var eventTypeReplacements = {
+var enterLeaveEventTypes = {
 	"mouseenter": "mouseover",
 	"mouseleave": "mouseout"
 }
@@ -61,15 +61,18 @@ Delegator.prototype.bind = function(top, eventType, selector, callback, nbEvents
 
 Delegator.prototype.unbind = function(top, eventType, selector, callback){
 	var typeHandler = this.typeHandlers.get(eventType);
-	if (!typeHandler) return;
+	if (!typeHandler) {
+		return;
+	}
 	typeHandler.unbind(top, selector, callback);
+	// TODO unbind and delete the typehandler if it has no handler remaining
 }
 
 function TypeHandler(eventType, top){
 	this.eventType = eventType;
 	this.handlers = [];
 	this.globalCallback = (event)=>{
-		var matches = this.findMatches(top, event.target);
+		var matches = this.findMatches(top, event);
 		this.dispatch(matches, event);
 	};
 	top.addEventListener(this.eventType, this.globalCallback);
@@ -80,25 +83,36 @@ TypeHandler.prototype.bind = function(selector, callback, nbEvents){
 }
 
 TypeHandler.prototype.unbind = function(top, selector, callback){
-	for (var i=0; i<this.handlers.length; i++) {
+	for (var i=this.handlers.length; i--;) {
 		var handler = this.handlers[i];
 		if (handler.selector === selector && handler.callback === callback) {
-			top.removeEventListener(this.eventType, callback);
+			this.handlers.splice(i, 1);
 			break;
 		}
 	}
 }
 
-TypeHandler.prototype.findMatches = function(top, target){
+// keep track of the elements in which we are, in order to avoid sending
+// enter events more than necessary
+let enteredElements = new WeakSet;
+
+TypeHandler.prototype.findMatches = function(top, event){
 	var matches = [];
-	var element = target;
+	var element = event.target;
 	while (element) {
 		for (let i=0; i<this.handlers.length; i++) {
 			let handler = this.handlers[i];
 			if (
-				!handler.selector
-				|| (element!==top && element.matches(handler.selector))
+				handler.selector
+				? element!==top && element.matches(handler.selector)
+				: element===top
 			) {
+				if (event.type==="mouseout" && $(element).contains(event)) {
+					continue;
+				}
+				if (event.type==="mouseover" && enteredElements.has(element)) {
+					continue;
+				}
 				matches.push({handler, element});
 			}
 		}
@@ -114,6 +128,14 @@ TypeHandler.prototype.dispatch = function(matches, event){
 			handler = match.handler;
 		if (!--handler.nbEvents) {
 			this.handlers.splice(this.handlers.indexOf(handler), 1);
+		}
+		if (event.type==="mouseover") {
+			enteredElements.add(match.element);
+			let leave = function(){
+				enteredElements.delete(match.element);
+				match.element.removeEventListener("mouseleave", leave);
+			}
+			match.element.addEventListener("mouseleave", leave);
 		}
 		var ret = handler.callback.call(match.element, event);
 		if (ret === false) {
