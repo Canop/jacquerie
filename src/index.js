@@ -1,9 +1,6 @@
 
 $.fn.index = function(){
-	var	i = -1,
-		e = this[0];
-	do {
-		i++;
-	} while ((e=e.previousElementSibling));
+	var	i = -1;
+	for (var e = this[0]; e; e=e.previousElementSibling) i++;
 	return i;
 }

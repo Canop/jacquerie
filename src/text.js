@@ -8,7 +8,5 @@ $.fn.text = function(t){
 		}
 		return this;
 	}
-	return this.map(function(){
-		return this.textContent;
-	}).get().join(' ');
+	return [].map.call(this, e => e.textContent).join(' ');
 }
