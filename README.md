@@ -42,8 +42,8 @@ That's why jQuery simplified alternatives make a lot of sense. This is one. This
 
 1. All Ajax and Defferred related functions make little sense in recent browsers. They're not in Jacquerie.
 1. There's no stack in Jacquerie traversing. jQuery's stack is heavy and very rarely used.
-1. As I consider the remaining most reasonnable use of `data` is to safely attach data to elements, data-attributes aren't read.
-1. There's only a limited support for `:visible`. You can only use it when it's the whole selector of `filter` (as is recommanded for jQuery).
+1. As I consider the remaining most reasonable use of `data` is to safely attach data to elements, data-attributes aren't read.
+1. There's only a limited support for `:visible`. You can only use it when it's the whole selector of `filter` (as is recommended for jQuery).
 1. `:gt`, `:lt` : use `$.fn.slice` instead (as is recommended for jQuery)
 1. jQuery is lax on attribute selectors and lets you omit the quotes in `[name="value"]`. Jacquerie lets `querySelectorAll` do the query and don't lose time cleaning your selectors.
 1. I made choices, and things I found useless weren't implemented
