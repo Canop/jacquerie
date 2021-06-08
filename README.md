@@ -1,7 +1,7 @@
 # jacquerie
 Similar to jQuery but without the burden of history
 
-**Warning:** This library isn't ready for consumption. Jacquerie is currently being integrated and tested into a big complex jQuery-intensive project. Once it's proven the promesses are fullfilled, I'll removed the warning.
+**Warning:** This is historical. It worked and still works but I don't use it anymore and it didn't catch so I won't support it if there's a problem.
 
 ## Why this is needed
 
